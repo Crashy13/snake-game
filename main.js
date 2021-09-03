@@ -17,7 +17,7 @@ let intervalTime = 0;
 let interval = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.addEventListener("keyup", control);
+  document.addEventListener("keydown", control);
   createBoard();
   startGame();
   playAgain.addEventListener("click", replay);
@@ -34,7 +34,7 @@ function createBoard() {
 
 
 function startGame() {
-  let squares = document.querySelector(".grid div");
+  let squares = document.querySelectorAll(".grid div");
   randomApple(squares);
   //random apple
   direction = 1;
@@ -42,13 +42,13 @@ function startGame() {
   intervalTime = 1000;
   currentSnake = [2, 1, 0];
   currentIndex = 0;
-  currentSnake.forEach((index) => squares[index].classList.add("snake"));
+  currentSnake.forEach(index => squares[index].classList.add("snake"));
   interval = setInterval(moveOutcome, intervalTime);
 }
 
 
 function moveOutcome() {
-  let squares = document.querySelector(".grid div");
+  let squares = document.querySelectorAll(".grid div");
   if (checkForHits(squares)) {
     alert("You hit something");
     popup.style.display = 'flex';
@@ -96,4 +96,39 @@ function eatApple(squares, tail) {
     intervalTime = intervalTime * speed;
     interval = setInterval(moveOutcome, intervalTime);
   }
+}
+
+
+function randomApple(squares) {
+  do {
+    appleIndex = Math.floor(Math.random() * squares.length);
+  } while (squares[appleIndex].classList.contains("snake"));
+  squares[appleIndex].classList.add("apple");
+}
+
+
+function control(e) {
+  if (e.keycode === 68) {
+    direction = 1; // right binded to d
+  } else if (e.keycode === 87) {
+    direction = -width; // up binded to w
+  } else if (e.keycode === 65) {
+    direction = -1; // left binded to a
+  } else if (e.keycode === 83) {
+    direction = +width; // down binded to s
+  }
+}
+
+
+up.addEventListener("click", () => (direction = -width));
+down.addEventListener("click", () => (direction = +width));
+left.addEventListener("click", () => (direction = -1));
+right.addEventListener("click", () => (direction = 1));
+
+
+function replay() {
+  grid.innerHTML = "";
+  createBoard();
+  startGame();
+  popup.style.display = "none";
 }

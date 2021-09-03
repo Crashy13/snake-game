@@ -9,16 +9,16 @@ body {
 .grid {
   display: flex;
   flex-wrap: wrap;
-  width: 200px;
-  height: 200px;
-  border: 1px solid red;
+  width: 202px;
+  height: 202px;
+  border: 1px solid teal;
   margin: 0 auto;
 }
 
 .grid div {
   width: 20px;
   height: 20px;
-  border: 1px solid purple;
+  /* border: 1px solid purple; */
 }
 
 .snake {
