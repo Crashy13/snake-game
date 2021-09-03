@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function createBoard() {
   popup.style.display = 'none';
-  for(let i = 0; i < 100; i++) {
+  for (let i = 0; i < 100; i++) {
     let div = document.createElement('div');
     grid.appendChild(div);
   }
@@ -44,4 +44,26 @@ function startGame() {
   currentIndex = 0;
   currentSnake.forEach((index) => squares[index].classList.add("snake"));
   interval = setInterval(moveOutcome, intervalTime);
+}
+
+
+function moveOutcome() {
+  let squares = document.querySelector(".grid div");
+  if (checkForHits(squares)) {
+    alert("You hit something");
+    popup.style.display = 'flex';
+    return clearInterval(interval);
+  } else {
+    moveSnake(squares);
+  }
+}
+
+
+function moveSnake(squares) {
+  let tail = currentSnake.pop();
+  squares[tail].classList.remove("snake");
+  currentSnake.unshift(currentSnake[0] + direction);
+  // movement ends here
+  eatApple(squares, tail);
+  squares[currentSnake[0]].classList.add("snake");
 }
