@@ -18,7 +18,7 @@ body {
 .grid div {
   width: 20px;
   height: 20px;
-  border: 1px solid black;
+  border: 1px solid purple;
 }
 
 .snake {
